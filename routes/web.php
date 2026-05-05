@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IdeaController;
 
 Route::get('/', function () {
     return view('welcome', ['name' => request('name', 'Guest')]);
@@ -12,6 +13,4 @@ Route::get('/about', function () {
 
 Route::view('/contact', 'contact');
 
-Route::get('/idea', function () {
-    return view('idea');
-});
+Route::resource('ideas', IdeaController::class);
