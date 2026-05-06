@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Idea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IdeaController extends Controller
 {
@@ -12,7 +13,7 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        $ideas = Idea::all();
+        $ideas = Idea::query()->where('user_id', Auth::id())->get();
         return view('idea.index', compact('ideas'));
     }
 
@@ -32,6 +33,7 @@ class IdeaController extends Controller
         $validated = $request->validate([
             'description' => 'required|string|min:5|max:1000',
         ]);
+        $validated['user_id'] = Auth::id();
 
         Idea::create($validated);
 
@@ -62,6 +64,7 @@ class IdeaController extends Controller
         $validated = $request->validate([
             'description' => 'required|string|min:5|max:1000',
         ]);
+        $validated['user_id'] = Auth::id();
 
         $idea->update($validated);
 
