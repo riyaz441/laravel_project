@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MathController;
 
 
 Route::get('/', function () {
@@ -29,3 +30,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login.form');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 });
+
+Route::get('/container', function(){
+    dd(app()->getBindings());
+});
+
+Route::get('/add', [MathController::class, 'add']);
